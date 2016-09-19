@@ -29,9 +29,9 @@ function singleSearchOnSite(info, tab) {
 	var context = "selection";
 	var parent = chrome.contextMenus.create({"title": "DataSection Mobile Search", "contexts":[context]});
 	
-	var id = chrome.contextMenus.create({"title": "Auto n Multiple Search", "parentId": parent, "contexts":[context],"onclick": autoSearchOnSite});
+	var id = chrome.contextMenus.create({"title": "Tìm nhiều sđt và tìm tự động", "parentId": parent, "contexts":[context],"onclick": autoSearchOnSite});
   
-	var id2 = chrome.contextMenus.create({"title": "Single Search", "parentId": parent, "contexts":[context],"onclick": singleSearchOnSite});
+	var id2 = chrome.contextMenus.create({"title": "Tìm một sđt", "parentId": parent, "contexts":[context],"onclick": singleSearchOnSite});
 	
 	
 

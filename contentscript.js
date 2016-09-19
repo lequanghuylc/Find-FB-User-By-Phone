@@ -61,10 +61,7 @@ if(fbSearchAutoRex.test(window.location.href)){
 			var wwwLink = "https://wwww.facebook.com" + fooHref.substring(0, fooHref.indexOf("?")) + "?thisphone=" +thisphone+ oldSuffixSearch;
 		}
 		console.log(wwwLink);
-		var linkArray = document.querySelectorAll("a");
-		linkArray.forEach(function(item){
-			item.setAttribute("href", wwwLink);
-		});
+		$("a").attr("href", wwwLink);
 		window.location = wwwLink;
 	}
 	
@@ -73,10 +70,7 @@ if(fbSearchAutoRex.test(window.location.href)){
 // only execute on facebook profile page
 if(fbProfileAutoRex.test(window.location.href)){
 	
-	var linkArray = document.querySelectorAll("a");
-	linkArray.forEach(function(item){
-		item.setAttribute("target", "_blank");
-	});	
+	$("a").attr("target", "_blank");
 	var profileLink = window.location.href.substring(0,window.location.href.indexOf("fromext=true")-1);
 	
 	//find user ID
@@ -179,10 +173,7 @@ if(fbSearchSingleRex.test(window.location.href)){
 			var wwwLink = "https://wwww.facebook.com" + fooHref.substring(0, fooHref.indexOf("?")) + "?thisphone=" +thisphone+ suffixSearch;
 		}
 		console.log(wwwLink);
-		var linkArray = document.querySelectorAll("a");
-		linkArray.forEach(function(item){
-			item.setAttribute("href", wwwLink);
-		});
+		$("a").attr("href", wwwLink);
 		window.location = wwwLink;
 	}
 	
@@ -191,10 +182,7 @@ if(fbSearchSingleRex.test(window.location.href)){
 // only execute on facebook profile page single
 if(fbProfileSingleRex.test(window.location.href)){
 	
-	var linkArray = document.querySelectorAll("a");
-	linkArray.forEach(function(item){
-		item.setAttribute("target", "_blank");
-	});	
+	$("a").attr("target", "_blank");
 	var profileLink = window.location.href.substring(0,window.location.href.indexOf("fromext=true")-1);
 	
 	//find user ID
