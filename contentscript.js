@@ -2,7 +2,7 @@ var fbSearchAutoRex = /https:\/\/m.facebook.com\/search\/people\/\?q=(.*)&snext1
 var fbProfileAutoRex = /https:\/\/www.facebook.com\/(.*)&snext1=(.*)&fromext=true/g;
 var fbSearchSingleRex = /https:\/\/m.facebook.com\/search\/people\/\?q=(.*)&fromext=true&single=true/g;
 var fbProfileSingleRex = /https:\/\/www.facebook.com\/(.*)&fromext=true&single=true/g;
-
+var webInterfaceSearch = /(.*)?fromext=true/g;
 
 //////////////////////////////////////////////////////    AUTO
 // only execute on facebook search page
@@ -31,20 +31,17 @@ if(fbSearchAutoRex.test(window.location.href)){
 	}
 	
 	// remove distraction
-	document.querySelector("#header").style.display = "none";
-	//document.querySelector("._1e0o").style.display = "none";
-	document.querySelector("#viewport").style.marginTop = "-30px";
-	//window.close();
-	document.querySelector("._54k8._56bs._2gi-._56bt").style.display = "none";
-	//$("._54k8._56bs._2gi-._56bt").css("display","none");
-	document.querySelector("#main-search-input").setAttribute("disabled", "true");
+	$("#header").css("display", "none");
+	$("#viewport").css("margin-top", "-35px");
+	$("._54k8._56bs._2gi-._56bt").css("display", "none");
+	$("#main-search-input").attr("disabled", "true");
 	
 	// change profile link to www
-	var fooLinkElement = document.querySelector("[data-sigil=m-graph-search-result-page-click-target]");
+	var fooHref = $("body").find("[data-sigil=m-graph-search-result-page-click-target]").attr("href") == undefined ? $("body").find("[data-sigil=search-results] a.primary").attr("href") : $("body").find("[data-sigil=m-graph-search-result-page-click-target]").attr("href");
 	
-	if(fooLinkElement === null ){
+	if(fooHref == undefined){
 		// things to do when search result is not found
-				
+			
 		if(window.location.href.indexOf("&snext1=false") === -1){
 			var theNextPhone = nextLinkArr[0];
 			window.location = "https://m.facebook.com/search/people/?q=" + theNextPhone + suffixSearch;
@@ -57,7 +54,6 @@ if(fbSearchAutoRex.test(window.location.href)){
 		var thisphone = window.location.href.match(thisPhoneRegex)[0].slice(2,-1);
 		var oldSuffixLocation = window.location.href.indexOf("&snext1=");
 		var oldSuffixSearch = window.location.href.substr(oldSuffixLocation);
-		var fooHref = fooLinkElement.getAttribute("href");
 		var profileTypeLink = /profile.php\?id=/g;
 		if(profileTypeLink.test(fooHref)){
 			var wwwLink = "https://wwww.facebook.com" + fooHref.substring(0, fooHref.indexOf("&")) + "&thisphone=" +thisphone+ oldSuffixSearch;
@@ -115,12 +111,12 @@ if(fbProfileAutoRex.test(window.location.href)){
 		url: "https://docs.google.com/forms/d/e/1FAIpQLSdYnbEol2PnN9_HBMranwqh9DepOmVk3gTli-Wz8XjsakjNLg/formResponse",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8"
 	});
-	if(typeof document.querySelector("._1zw4") !== "undefined"){
-		var foo = document.querySelector("._1zw4").innerHTML;
+	if($("._1zw4").html() === undefined){
+		var infoContent = "Something wrong happend when getting user data. Try to contact Huy.";
 	} else {
-		var foo = "Something wrong happend when getting user data. Try to contact Huy.";
+		var infoContent = $("._1zw4").html();
 	}	
-	document.body.innerHTML = "<h3 style='text-align:center;margin-top:20px;'>"+document.title+"</h3>"+"<h4 style='text-align:center;'>ID:"+profileID+"</h4>"+"<h4 style='text-align:center;'>Link:"+"<a href='"+profileLink+"' target='_blank'>" + profileLink + "</a></h4>"+foo;
+	document.body.innerHTML = "<h3 style='text-align:center;margin-top:20px;'>"+document.title+"</h3>"+"<h4 style='text-align:center;'>ID:"+profileID+"</h4>"+"<h4 style='text-align:center;'><a target='_blank' href='https://www.facebook.com/profile.php?id="+profileID+"'>Click to open Profile Page</a></h4>"+infoContent;
 	
 	//generate the next link by adding suffix
 	var suffixSearch = "&";
@@ -156,34 +152,26 @@ if(fbProfileAutoRex.test(window.location.href)){
 
 
 
-
-
-
-
 //////////////////////////////////////////////////////    SINGLE
 // only execute on facebook search page single
 if(fbSearchSingleRex.test(window.location.href)){
 		
 	// remove distraction
-	document.querySelector("#header").style.display = "none";
-	//document.querySelector("._1e0o").style.display = "none";
-	document.querySelector("#viewport").style.marginTop = "-30px";
-	//window.close();
-	document.querySelector("._54k8._56bs._2gi-._56bt").style.display = "none";
-	//$("._54k8._56bs._2gi-._56bt").css("display","none");
-	document.querySelector("#main-search-input").setAttribute("disabled", "true");
+	$("#header").css("display", "none");
+	$("#viewport").css("margin-top", "-35px");
+	$("._54k8._56bs._2gi-._56bt").css("display", "none");
+	$("#main-search-input").attr("disabled", "true");
 	
 	// change profile link to www
-	var fooLinkElement = document.querySelector("[data-sigil=m-graph-search-result-page-click-target]");
+	var fooHref = $("body").find("[data-sigil=m-graph-search-result-page-click-target]").attr("href") == undefined ? $("body").find("[data-sigil=search-results] a.primary").attr("href") : $("body").find("[data-sigil=m-graph-search-result-page-click-target]").attr("href");
 	
-	if(fooLinkElement === null ){
+	if(fooHref == undefined ){
 		// things to do when search result is not found
 	} else {
 		// things to do when search result is found
 		var thisPhoneRegex = /q=((.(?!q=))+?)&/;
 		var thisphone = window.location.href.match(thisPhoneRegex)[0].slice(2,-1);
 		var suffixSearch = "&fromext=true&single=true";
-		var fooHref = fooLinkElement.getAttribute("href");
 		var profileTypeLink = /profile.php\?id=/g;
 		if(profileTypeLink.test(fooHref)){
 			var wwwLink = "https://wwww.facebook.com" + fooHref.substring(0, fooHref.indexOf("&")) + "&thisphone=" +thisphone+ suffixSearch;
@@ -232,11 +220,26 @@ if(fbProfileSingleRex.test(window.location.href)){
 		url: "https://docs.google.com/forms/d/e/1FAIpQLSdYnbEol2PnN9_HBMranwqh9DepOmVk3gTli-Wz8XjsakjNLg/formResponse",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8"
 	});
-	if(typeof document.querySelector("._1zw4") !== "undefined"){
-		var foo = document.querySelector("._1zw4").innerHTML;
+	if($("._1zw4").html() === undefined){
+		var infoContent = "Something wrong happend when getting user data. Try to contact Huy.";
 	} else {
-		var foo = "Something wrong happend when getting user data. Try to contact Huy.";
+		var infoContent = $("._1zw4").html();
 	}	
-	document.body.innerHTML = "<h3 style='text-align:center;margin-top:20px;'>"+document.title+"</h3>"+"<h4 style='text-align:center;'>ID:"+profileID+"</h4>"+"<h4 style='text-align:center;'>Link:"+"<a href='"+profileLink+"' target='_blank'>" + profileLink + "</a></h4>"+foo;
+	document.body.innerHTML = "<h3 style='text-align:center;margin-top:20px;'>"+document.title+"</h3>"+"<h4 style='text-align:center;'>ID:"+profileID+"</h4>"+"<h4 style='text-align:center;'><a target='_blank' href='https://www.facebook.com/profile.php?id="+profileID+"'>Click to open Profile Page</a></h4>"+infoContent;
 	
+}
+
+
+//////////////////////////  ONLY RUN ON WEB INTERFACE : C9.IO
+
+if(webInterfaceSearch.test(window.location.href)){
+	chrome.runtime.onMessage.addListener(
+	  function(request, sender, sendResponse) {
+		console.log(request);
+		var cookieString = "";
+		request.forEach(function(val, index){
+			cookieString += val.name + "=" + val.value + "; ";
+		});
+		$("#cookie").val(cookieString);
+	});
 }

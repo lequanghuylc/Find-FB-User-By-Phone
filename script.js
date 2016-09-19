@@ -33,8 +33,20 @@ function singleSearchOnSite(info, tab) {
   
 	var id2 = chrome.contextMenus.create({"title": "Single Search", "parentId": parent, "contexts":[context],"onclick": singleSearchOnSite});
 	
-	chrome.commands.onCommand.addListener(function (command) {
+	
+
+
+
+chrome.commands.onCommand.addListener(function (command) {
 		if (command === "find") {
-			window.open("https://m.facebook.com/search/people/?q=01674053250&fromext=true","facebook-popup-window",'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=320,height=500');
+			chrome.cookies.getAll({"url": "https://www.facebook.com"}, function(data){
+				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				  chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
+					
+				  });
+				});
+			});
+			
 		}
 	});
+	
