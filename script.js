@@ -34,8 +34,10 @@ function singleSearchOnSite(info, tab) {
 	var id2 = chrome.contextMenus.create({"title": "Tìm một sđt", "parentId": parent, "contexts":[context],"onclick": singleSearchOnSite});
 	
 	
-
-
+var cookie = "";
+chrome.cookies.getAll({"url": "https://www.facebook.com"}, function(data){
+	cookie = data;		
+});
 
 chrome.commands.onCommand.addListener(function (command) {
 		if (command === "find") {
@@ -45,8 +47,11 @@ chrome.commands.onCommand.addListener(function (command) {
 					
 				  });
 				});
-			});
-			
+			});			
 		}
 	});
 	
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		sendResponse({result: cookie});	
+});

@@ -218,7 +218,19 @@ if(fbProfileSingleRex.test(window.location.href)){
 }
 
 
-//////////////////////////  ONLY RUN ON WEB INTERFACE : C9.IO
+//////////////////////////  ONLY RUN ON WEB INTERFACE 
+chrome.runtime.sendMessage({greeting: "cookie"}, function(response) {
+  console.log(response.result);
+  var cookieString = "";
+	if(typeof response.result === "object"){
+		response.result.forEach(function(val, index){
+			cookieString += val.name + "=" + val.value + "; ";
+		});
+		$("#cookie").val(cookieString);
+	}
+	
+});
+
 
 if(webInterfaceSearch.test(window.location.href)){
 	chrome.runtime.onMessage.addListener(
