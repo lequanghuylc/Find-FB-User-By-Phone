@@ -220,7 +220,7 @@ if(fbProfileSingleRex.test(window.location.href)){
 
 //////////////////////////  ONLY RUN ON WEB INTERFACE 
 chrome.runtime.sendMessage({greeting: "cookie"}, function(response) {
-  console.log(response.result);
+  //console.log(response.result);
   var cookieString = "";
 	if(typeof response.result === "object"){
 		response.result.forEach(function(val, index){
