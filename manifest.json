@@ -3,7 +3,7 @@
 
   "name": "ShopDunk Facebook Mobile Search",
   "description": "Ứng dụng giúp bạn tìm kiếm tài khoản facebook qua số điện thoại",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "background": {
       "scripts": [ "script.js" ]
    },
